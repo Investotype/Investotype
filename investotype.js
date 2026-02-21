@@ -301,15 +301,16 @@ function showResult() {
     : 'This is a high-quality, liquid investment that generally fits balanced long-term growth behavior.';
   resultDiv.appendChild(bestFitSummary);
 
+  const liveInvestmentSection = document.createElement('section');
   const liveInvestmentTitle = document.createElement('div');
   liveInvestmentTitle.className = 'result-section-title';
   liveInvestmentTitle.textContent = 'How It Is Doing Now';
-  resultDiv.appendChild(liveInvestmentTitle);
+  liveInvestmentSection.appendChild(liveInvestmentTitle);
 
   const liveInvestmentCopy = document.createElement('p');
   liveInvestmentCopy.className = 'result-copy';
-  liveInvestmentCopy.textContent = 'Loading latest market snapshot for your best-fit investment...';
-  resultDiv.appendChild(liveInvestmentCopy);
+  liveInvestmentSection.appendChild(liveInvestmentCopy);
+  resultDiv.appendChild(liveInvestmentSection);
 
   const growthFitCopy = document.createElement('p');
   growthFitCopy.className = 'result-copy';
@@ -321,7 +322,7 @@ function showResult() {
     fetchTickerSnapshot(bestTicker)
       .then((snapshot) => {
         if (!snapshot) {
-          liveInvestmentCopy.textContent = `Live snapshot is temporarily unavailable for ${bestTicker}.`;
+          liveInvestmentSection.remove();
           return;
         }
         liveInvestmentCopy.textContent =
@@ -329,10 +330,10 @@ function showResult() {
           `1D: ${formatPercent(snapshot.dayPct)} | 1M: ${formatPercent(snapshot.monthPct)}`;
       })
       .catch(() => {
-        liveInvestmentCopy.textContent = `Live snapshot is temporarily unavailable for ${bestTicker}.`;
+        liveInvestmentSection.remove();
       });
   } else {
-    liveInvestmentCopy.textContent = 'Live snapshot unavailable for this instrument type.';
+    liveInvestmentSection.remove();
   }
 
   const valuesTitle = document.createElement('div');
