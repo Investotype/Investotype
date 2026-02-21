@@ -1056,8 +1056,12 @@ select:hover {
   }
 
   .portfolio-result {
-    padding: 0.9rem;
-    gap: 0.9rem;
+    margin-top: 1rem;
+    padding: 0;
+    gap: 0.7rem;
+    border: none;
+    background: transparent;
+    box-shadow: none;
   }
 
   .portfolio-pick-grid {
@@ -1071,19 +1075,40 @@ select:hover {
   .portfolio-tool-btn {
     width: 100%;
     text-align: center;
+    font-size: 0.82rem;
+    padding: 0.52rem 0.72rem;
+  }
+
+  .portfolio-readable {
+    box-shadow: none;
   }
 
   .portfolio-block {
-    padding: 0.92rem 0.86rem 0.62rem;
+    padding: 0.82rem 0.74rem 0.5rem;
+    border-radius: 11px;
   }
 
   .portfolio-section-title {
-    font-size: 1.04rem;
+    font-size: 0.96rem;
   }
 
   .portfolio-copy {
-    font-size: 0.97rem;
-    line-height: 1.6;
+    font-size: 0.88rem;
+    line-height: 1.48;
+    margin: 0.22rem 0 0.78rem;
+  }
+
+  .portfolio-copy-data {
+    font-size: 0.84rem;
+    padding: 0.44rem 0.56rem;
+  }
+
+  .portfolio-pick-card {
+    padding: 0.65rem;
+  }
+
+  .portfolio-pick-title {
+    font-size: 0.9rem;
   }
 
   .back-top-btn {

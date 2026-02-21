@@ -16,32 +16,22 @@
   const mqMobile = window.matchMedia('(max-width: 820px)');
 
   function updateNav() {
-    if (mqMobile.matches) {
-      navWrap.classList.remove('is-hidden');
-      lastY = window.scrollY || 0;
-      if ((window.scrollY || 0) > 520) {
-        backTopBtn.classList.add('is-visible');
-      } else {
-        backTopBtn.classList.remove('is-visible');
-      }
-      ticking = false;
-      return;
-    }
-
     const currentY = window.scrollY || 0;
     const delta = currentY - lastY;
+    const menuOpen = !!(navDropdown && navDropdown.classList.contains('is-open'));
+    const activeThreshold = mqMobile.matches ? 7 : hideThreshold;
 
-    if (currentY <= topLock) {
+    if (menuOpen || currentY <= topLock) {
       navWrap.classList.remove('is-hidden');
-    } else if (delta > hideThreshold) {
+    } else if (delta > activeThreshold) {
       navWrap.classList.add('is-hidden');
       lastY = currentY;
-    } else if (delta < -hideThreshold) {
+    } else if (delta < -activeThreshold) {
       navWrap.classList.remove('is-hidden');
       lastY = currentY;
     }
 
-    if (Math.abs(delta) <= hideThreshold) {
+    if (Math.abs(delta) <= activeThreshold) {
       lastY = currentY;
     }
     if (currentY > 520) {
@@ -104,6 +94,7 @@
     mqMobile.addEventListener('change', () => {
       closeMenu();
       navWrap.classList.remove('is-hidden');
+      lastY = window.scrollY || 0;
     });
   }
 })();
