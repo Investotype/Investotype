@@ -846,36 +846,37 @@ select {
 
 @media (max-width: 820px) {
   .top-nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-    gap: 0.42rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
     padding: 0.55rem;
   }
 
   .top-nav > a,
   .top-nav > .nav-dropdown {
-    width: 100%;
+    flex: 0 1 auto;
   }
 
   .top-nav a,
   .nav-drop-trigger {
-    display: block;
+    display: inline-block;
     text-align: center;
-    padding: 0.58rem 0.5rem;
+    padding: 0.52rem 0.62rem;
     font-size: 0.84rem;
   }
 
   .nav-dropdown {
-    width: 100%;
     position: relative;
   }
 
   .nav-dropdown-menu {
     position: absolute;
     top: calc(100% + 0.3rem);
-    left: 0;
-    width: min(260px, calc(100vw - 3rem));
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(280px, calc(100vw - 2.4rem));
     z-index: 60;
     display: none;
     box-shadow: var(--shadow);
