@@ -26,27 +26,27 @@
 
     target.innerHTML =
       `<p class="portfolio-copy"><strong>Best-fit investment:</strong> ${instrument}</p>` +
-      `<p class="portfolio-copy" id="direct-live-line">Loading latest market snapshot...</p>` +
-      `<p class="portfolio-copy"><strong>Why this can grow for your type:</strong> ${growthReason}</p>`;
+      `<p class="portfolio-copy" id="direct-growth-reason"><strong>Why this can grow for your type:</strong> ${growthReason}</p>`;
 
     if (!ticker || typeof fetchTickerSnapshot !== 'function' || typeof formatPrice !== 'function' || typeof formatPercent !== 'function') {
-      const line = document.getElementById('direct-live-line');
-      if (line) line.textContent = 'Live snapshot is currently unavailable.';
       return;
     }
 
     try {
       const snap = await fetchTickerSnapshot(ticker);
-      const line = document.getElementById('direct-live-line');
-      if (!line) return;
-      if (!snap) {
-        line.textContent = `Live snapshot is temporarily unavailable for ${ticker}.`;
-        return;
+      if (snap) {
+        const line = document.createElement('p');
+        line.className = 'portfolio-copy';
+        line.textContent = `${ticker} now: ${formatPrice(snap.price, snap.currency)} | 1D: ${formatPercent(snap.dayPct)} | 1M: ${formatPercent(snap.monthPct)}`;
+        const reasonEl = document.getElementById('direct-growth-reason');
+        if (reasonEl && reasonEl.parentNode === target) {
+          target.insertBefore(line, reasonEl);
+        } else {
+          target.appendChild(line);
+        }
       }
-      line.textContent = `${ticker} now: ${formatPrice(snap.price, snap.currency)} | 1D: ${formatPercent(snap.dayPct)} | 1M: ${formatPercent(snap.monthPct)}`;
     } catch (err) {
-      const line = document.getElementById('direct-live-line');
-      if (line) line.textContent = `Live snapshot is temporarily unavailable for ${ticker}.`;
+      // Hide "how it is doing now" section when data is unavailable.
     }
   }
 
