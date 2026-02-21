@@ -1,0 +1,104 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Investotype | Portfolio Builder</title>
+  <meta name="description" content="Generate a portfolio by selecting your investor type directly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="./investotype.js" defer></script>
+  <script src="./portfolio-builder.js" defer></script>
+  <script src="./nav-scroll.js" defer></script>
+</head>
+<body>
+  <div class="bg-shape bg-a"></div>
+  <div class="bg-shape bg-b"></div>
+
+  <header class="top-nav-wrap">
+    <nav class="top-nav">
+      <a href="./index.html">Home Page</a>
+      <a href="./personalities.html">Personality Types</a>
+      <div class="nav-dropdown">
+        <a href="./news.html" class="nav-drop-trigger">News</a>
+        <div class="nav-dropdown-menu">
+          <a href="./news.html">Current Market Trends</a>
+          <a href="./recommended-news.html">For Your Type</a>
+        </div>
+      </div>
+      <a href="./portfolio.html" class="active">Portfolio Builder</a>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="hero card small">
+      <p class="eyebrow">No Quiz Path</p>
+      <h1>Build Portfolio by Investor Type</h1>
+      <p class="sub">Select your investor type, budget, and currency to generate a tailored starting portfolio instantly.</p>
+    </section>
+
+    <section class="planning card">
+      <h2>Direct Portfolio Planner</h2>
+      <p class="plan-note">Choose the investor type that best matches you, then generate recommendations.</p>
+      <div id="direct-live-snapshot" class="portfolio-result"></div>
+      <div class="plan-controls">
+        <label>
+          Investor Type
+          <select id="direct-investor-type">
+            <option value="low-low">Capital Defender</option>
+            <option value="low-mid">Income Investor</option>
+            <option value="low-high">Balanced Growth Investor</option>
+            <option value="mid-low">Index Investor</option>
+            <option value="mid-mid">Quality Growth Investor</option>
+            <option value="mid-high">Tactical Investor</option>
+            <option value="high-low">Innovation Investor</option>
+            <option value="high-mid">Aggressive Investor</option>
+            <option value="high-high">Alternative Investor</option>
+          </select>
+        </label>
+        <label>
+          Budget
+          <input id="direct-budget" type="number" min="0" step="100" placeholder="10000" />
+        </label>
+        <label>
+          Currency
+          <select id="direct-currency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="KRW">KRW</option>
+          </select>
+        </label>
+      </div>
+      <div class="quiz-cta-center" style="margin-top: 1rem;">
+        <button id="direct-plan-btn" class="primary-btn" type="button">Generate Portfolio</button>
+      </div>
+      <div id="direct-portfolio-result" class="portfolio-result"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Discover more at</p>
+    <p><a class="friendly-link" href="https://investotype.github.io/Investotype/index.html" target="_blank" rel="noopener noreferrer">Investotype Home</a></p>
+    <p><a class="instagram-btn" href="https://www.instagram.com/investotype?igsh=MTI2eG1pcHQ0ZWR0Nw==" target="_blank" rel="noopener noreferrer">Instagram @investotype</a> | <a class="contact-btn" href="mailto:tgrkhwang@gmail.com">Contact Email</a></p>
+      <p>&copy; 2026 Investotype. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
