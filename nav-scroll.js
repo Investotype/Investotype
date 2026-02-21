@@ -8,8 +8,16 @@
   let ticking = false;
   const hideThreshold = 10;
   const topLock = 80;
+  const mqMobile = window.matchMedia('(max-width: 820px)');
 
   function updateNav() {
+    if (mqMobile.matches) {
+      navWrap.classList.remove('is-hidden');
+      lastY = window.scrollY || 0;
+      ticking = false;
+      return;
+    }
+
     const currentY = window.scrollY || 0;
     const delta = currentY - lastY;
 
@@ -37,7 +45,6 @@
   }, { passive: true });
 
   if (navDropdown && navTrigger) {
-    const mqMobile = window.matchMedia('(max-width: 820px)');
 
     const closeMenu = () => {
       navDropdown.classList.remove('is-open');
@@ -77,6 +84,7 @@
 
     mqMobile.addEventListener('change', () => {
       closeMenu();
+      navWrap.classList.remove('is-hidden');
     });
   }
 })();
