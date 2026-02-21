@@ -742,6 +742,14 @@ select {
   margin: 0.75rem 0;
 }
 
+.footer-actions {
+  margin: 0.75rem 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
 .footer a {
   color: var(--mint);
   text-decoration: none;
