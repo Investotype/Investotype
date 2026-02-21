@@ -621,6 +621,30 @@ select {
   padding: 0.68rem 0.72rem;
 }
 
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 2.1rem;
+  background-image:
+    linear-gradient(180deg, rgba(12, 43, 58, 0.92), rgba(8, 30, 42, 0.9)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24'%3E%3Cpath fill='%2393ffd8' d='m7 10 5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-position: 0 0, right 0.65rem center;
+  background-size: auto, 14px;
+}
+
+select:hover {
+  border-color: rgba(147, 255, 216, 0.5);
+}
+
+#currency,
+#direct-currency {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
 .portfolio-result {
   margin-top: 1.6rem;
   border: 1px solid rgba(147, 255, 216, 0.22);
@@ -686,8 +710,50 @@ select {
 .portfolio-result canvas {
   width: 100% !important;
   max-width: 100%;
-  height: auto !important;
   display: block;
+}
+
+.portfolio-tools {
+  margin-top: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.portfolio-tool-btn {
+  border: 1px solid rgba(147, 255, 216, 0.32);
+  background: rgba(14, 52, 67, 0.68);
+  color: #dcf7ff;
+  border-radius: 10px;
+  padding: 0.48rem 0.72rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.portfolio-tool-btn:hover {
+  border-color: rgba(147, 255, 216, 0.58);
+  background: rgba(23, 74, 92, 0.72);
+}
+
+.portfolio-pick-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.portfolio-pick-card {
+  border: 1px solid rgba(132, 204, 217, 0.2);
+  border-radius: 12px;
+  background: rgba(10, 35, 49, 0.72);
+  padding: 0.8rem;
+}
+
+.portfolio-pick-title {
+  margin: 0 0 0.45rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  color: #c8fff0;
 }
 
 .share-btn {
@@ -807,6 +873,34 @@ select {
 .contact-btn:hover {
   background: rgba(46, 211, 191, 0.25);
   text-decoration: none;
+}
+
+.back-top-btn {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 45;
+  border: 1px solid rgba(147, 255, 216, 0.45);
+  border-radius: 999px;
+  background: rgba(8, 30, 43, 0.86);
+  color: #dff8ff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.82rem;
+  padding: 0.48rem 0.8rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.back-top-btn.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-top-btn:hover {
+  border-color: rgba(147, 255, 216, 0.72);
 }
 
 
@@ -957,6 +1051,19 @@ select {
     gap: 0.9rem;
   }
 
+  .portfolio-pick-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-tools {
+    justify-content: stretch;
+  }
+
+  .portfolio-tool-btn {
+    width: 100%;
+    text-align: center;
+  }
+
   .portfolio-block {
     padding: 0.92rem 0.86rem 0.62rem;
   }
@@ -968,6 +1075,11 @@ select {
   .portfolio-copy {
     font-size: 0.97rem;
     line-height: 1.6;
+  }
+
+  .back-top-btn {
+    right: 0.8rem;
+    bottom: 0.8rem;
   }
 }
 

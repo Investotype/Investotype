@@ -112,6 +112,14 @@ if (document.readyState === 'loading') {
   startQuiz();
 }
 
+function scrollSectionToTop(target) {
+  if (!target) return;
+  const navWrap = document.querySelector('.top-nav-wrap');
+  const navOffset = navWrap ? navWrap.getBoundingClientRect().height : 0;
+  const top = target.getBoundingClientRect().top + window.scrollY - navOffset - 10;
+  window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+}
+
 function showResult() {
   const progress = document.getElementById('progress');
   const container = document.getElementById('question-container');
@@ -264,7 +272,6 @@ function showResult() {
   resText.className = 'result-type';
   resText.textContent = info.name;
   resultDiv.appendChild(resText);
-  resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   const typeTitle = document.createElement('div');
   typeTitle.className = 'result-section-title';
@@ -640,6 +647,8 @@ function showResult() {
       renderPortfolioRecommendation({ combo, riskBand, budget, currency, out });
     };
   }
+
+  scrollSectionToTop(resultDiv);
 }
 
 function formatMoney(amount, currency) {
@@ -782,9 +791,42 @@ async function fetchTickerSnapshot(ticker) {
   };
 }
 
+function buildPortfolioText({ portfolio, budget, currency, combo, riskBand }) {
+  const lines = [];
+  lines.push('Investotype Portfolio Plan');
+  lines.push(`Date: ${portfolio.market.date}`);
+  lines.push(`Budget: ${formatMoney(budget, currency)}`);
+  lines.push(`Profile: ${combo.replace('-', ' / ')} (${riskBand} risk)`);
+  lines.push('');
+  lines.push('Market Condition');
+  lines.push(portfolio.market.summary);
+  lines.push('');
+  lines.push('Allocation');
+  portfolio.allocations.forEach((a) => {
+    lines.push(`- ${a.name}: ${formatMoney(a.amount, currency)} (${a.pct}%)`);
+  });
+  lines.push('');
+  lines.push('Detailed Investment Plan');
+  portfolio.picks.forEach((pick) => {
+    lines.push(`- ${pick.name}: ${formatMoney(pick.amount, currency)} (${pick.pct}%)`);
+    lines.push(`  Why it fits: ${pick.why}`);
+    lines.push(`  Why it is strong: ${pick.whyGood}`);
+  });
+  lines.push('');
+  lines.push('Advanced Strategies');
+  portfolio.advancedOptions.forEach((option) => {
+    lines.push(`- ${option.name}: ${formatMoney(option.amount, currency)} (${option.pct}%)`);
+  });
+  lines.push('');
+  lines.push('Conclusion');
+  lines.push(portfolio.conclusion);
+  return lines.join('\n');
+}
+
 function renderPortfolioRecommendation({ combo, riskBand, budget, currency, out }) {
   const portfolio = calculatePortfolio(combo, riskBand, budget, currency);
   if (!out) return;
+  const isMobile = window.matchMedia && window.matchMedia('(max-width: 820px)').matches;
 
   out.innerHTML = '';
   out.classList.add('portfolio-readable');
@@ -794,6 +836,7 @@ function renderPortfolioRecommendation({ combo, riskBand, budget, currency, out 
     warning.className = 'portfolio-copy';
     warning.textContent = 'Please enter a budget greater than 0 to generate a meaningful portfolio.';
     out.appendChild(warning);
+    scrollSectionToTop(out);
     return;
   }
 
@@ -821,6 +864,24 @@ function renderPortfolioRecommendation({ combo, riskBand, budget, currency, out 
     }
   };
 
+  addHeading('At a Glance');
+  addPara(`Budget: ${formatMoney(budget, currency)}`, 'data');
+  addPara(`Profile: ${combo.replace('-', ' / ')} (${riskBand} risk band)`, 'data');
+
+  const tools = document.createElement('div');
+  tools.className = 'portfolio-tools';
+  const copyBtn = document.createElement('button');
+  copyBtn.type = 'button';
+  copyBtn.className = 'portfolio-tool-btn';
+  copyBtn.textContent = 'Copy Plan';
+  const downloadBtn = document.createElement('button');
+  downloadBtn.type = 'button';
+  downloadBtn.className = 'portfolio-tool-btn';
+  downloadBtn.textContent = 'Download TXT';
+  tools.appendChild(copyBtn);
+  tools.appendChild(downloadBtn);
+  if (currentSection) currentSection.appendChild(tools);
+
   addHeading(`Market Condition (${portfolio.market.date})`);
   addPara(portfolio.market.summary);
 
@@ -833,11 +894,18 @@ function renderPortfolioRecommendation({ combo, riskBand, budget, currency, out 
   addPara(portfolio.notes);
 
   addHeading('Detailed Investment Plan');
+  const picksGrid = document.createElement('div');
+  picksGrid.className = 'portfolio-pick-grid';
+  if (currentSection) currentSection.appendChild(picksGrid);
   portfolio.picks.forEach((pick) => {
-    addHeading(pick.name);
-    addPara(`Suggested allocation: ${formatMoney(pick.amount, currency)} (${pick.pct}%)`, 'data');
-    addPara(`Why this helps your style: ${pick.why}`);
-    addPara(`Why this is a strong investment: ${pick.whyGood}`);
+    const card = document.createElement('article');
+    card.className = 'portfolio-pick-card';
+    card.innerHTML =
+      `<h5 class="portfolio-pick-title">${pick.name}</h5>` +
+      `<p class="portfolio-copy portfolio-copy-data">${formatMoney(pick.amount, currency)} (${pick.pct}%)</p>` +
+      `<p class="portfolio-copy"><strong>Why it fits:</strong> ${pick.why}</p>` +
+      `<p class="portfolio-copy"><strong>Why it is strong:</strong> ${pick.whyGood}</p>`;
+    picksGrid.appendChild(card);
   });
 
   addHeading('Advanced Strategies (Use Only If Suitable)');
@@ -850,7 +918,10 @@ function renderPortfolioRecommendation({ combo, riskBand, budget, currency, out 
   addPara(portfolio.conclusion);
 
   if (portfolio.chartData && window.Chart) {
+    const legendFontSize = isMobile ? 12 : 13;
+    const axisFontSize = isMobile ? 11 : 12;
     const chartContainer = document.createElement('div');
+    chartContainer.className = 'portfolio-chart-wrap';
     chartContainer.style.marginTop = '28px';
     chartContainer.innerHTML =
       '<h4 class="portfolio-section-title">Allocation Mix</h4><canvas id="chart-allocation" width="420" height="220"></canvas>' +
@@ -875,8 +946,10 @@ function renderPortfolioRecommendation({ combo, riskBand, budget, currency, out 
       },
       options: {
         responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: isMobile ? 1.25 : 1.7,
         plugins: {
-          legend: { labels: { color: '#d5eef6' }, position: 'bottom' }
+          legend: { labels: { color: '#d5eef6', font: { size: legendFontSize } }, position: 'bottom' }
         },
         cutout: '58%'
       }
@@ -899,12 +972,14 @@ function renderPortfolioRecommendation({ combo, riskBand, budget, currency, out 
       },
       options: {
         responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: isMobile ? 1.2 : 1.6,
         plugins: {
-          legend: { labels: { color: '#d5eef6' } }
+          legend: { labels: { color: '#d5eef6', font: { size: legendFontSize } } }
         },
         scales: {
-          x: { ticks: { color: '#c7e4ee', maxRotation: 20, minRotation: 0 } },
-          y: { beginAtZero: true, max: 100, ticks: { color: '#c7e4ee' }, grid: { color: 'rgba(180,220,232,0.14)' } }
+          x: { ticks: { color: '#c7e4ee', maxRotation: isMobile ? 40 : 20, minRotation: 0, font: { size: axisFontSize } } },
+          y: { beginAtZero: true, max: 100, ticks: { color: '#c7e4ee', font: { size: axisFontSize } }, grid: { color: 'rgba(180,220,232,0.14)' } }
         }
       }
     });
@@ -912,6 +987,35 @@ function renderPortfolioRecommendation({ combo, riskBand, budget, currency, out 
     addHeading('Charts');
     addPara('Chart library is unavailable right now, so only text recommendations are shown.');
   }
+
+  const planText = buildPortfolioText({ portfolio, budget, currency, combo, riskBand });
+  copyBtn.onclick = async () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(planText);
+        copyBtn.textContent = 'Copied';
+        setTimeout(() => { copyBtn.textContent = 'Copy Plan'; }, 1400);
+      } else {
+        copyBtn.textContent = 'Not Supported';
+      }
+    } catch (err) {
+      copyBtn.textContent = 'Copy Failed';
+    }
+  };
+
+  downloadBtn.onclick = () => {
+    const blob = new Blob([planText], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `investotype-portfolio-${combo}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+  };
+
+  scrollSectionToTop(out);
 }
 
 function calculatePortfolio(combo, riskBand, budget, currency = 'USD') {
