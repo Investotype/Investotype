@@ -743,11 +743,13 @@ select {
 }
 
 .footer-actions {
-  margin: 0.75rem 0;
-  display: inline-flex;
+  margin: 0.75rem auto 0.9rem;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  width: fit-content;
 }
 
 .footer a {
@@ -759,54 +761,30 @@ select {
   text-decoration: underline;
 }
 
-.friendly-link {
+.friendly-link,
+.instagram-btn,
+.contact-btn {
   display: inline-block;
-  margin-left: 0.7rem;
+  margin-left: 0;
   padding: 0.3rem 0.65rem;
   border-radius: 999px;
   background: rgba(46, 211, 191, 0.14);
   border: 1px solid rgba(147, 255, 216, 0.4);
+  color: var(--mint);
   text-decoration: none;
 }
 
-.friendly-link:hover {
-  background: rgba(46, 211, 191, 0.25);
-  text-decoration: none;
-}
-
-.instagram-btn {
-  display: inline-block;
-  padding: 0.42rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid rgba(147, 255, 216, 0.45);
-  background: linear-gradient(92deg, rgba(46, 211, 191, 0.22), rgba(72, 193, 255, 0.22));
-  color: #e8fbff;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.instagram-btn:hover {
-  border-color: rgba(147, 255, 216, 0.7);
-  background: linear-gradient(92deg, rgba(46, 211, 191, 0.35), rgba(72, 193, 255, 0.35));
-  text-decoration: none;
-}
-
+.instagram-btn,
 .contact-btn {
-  display: inline-block;
-  padding: 0.42rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid rgba(147, 255, 216, 0.45);
-  background: linear-gradient(92deg, rgba(72, 193, 255, 0.2), rgba(46, 211, 191, 0.2));
-  color: #e8fbff;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  text-decoration: none;
+  min-width: 0;
+  text-align: center;
 }
 
+
+.friendly-link:hover,
+.instagram-btn:hover,
 .contact-btn:hover {
-  border-color: rgba(147, 255, 216, 0.7);
-  background: linear-gradient(92deg, rgba(72, 193, 255, 0.32), rgba(46, 211, 191, 0.32));
+  background: rgba(46, 211, 191, 0.25);
   text-decoration: none;
 }
 
@@ -904,6 +882,15 @@ select {
   .portfolio-copy-data {
     padding: 0.7rem 0.8rem;
     font-size: 1rem;
+  }
+
+  .footer-actions {
+    width: 100%;
+  }
+
+  .instagram-btn,
+  .contact-btn {
+    flex: 0 0 auto;
   }
 
   .status-row {
