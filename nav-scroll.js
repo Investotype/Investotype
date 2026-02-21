@@ -1,6 +1,8 @@
 (() => {
   const navWrap = document.querySelector('.top-nav-wrap');
   if (!navWrap) return;
+  const navDropdown = navWrap.querySelector('.nav-dropdown');
+  const navTrigger = navWrap.querySelector('.nav-drop-trigger');
 
   let lastY = window.scrollY || 0;
   let ticking = false;
@@ -33,4 +35,48 @@
       ticking = true;
     }
   }, { passive: true });
+
+  if (navDropdown && navTrigger) {
+    const mqMobile = window.matchMedia('(max-width: 820px)');
+
+    const closeMenu = () => {
+      navDropdown.classList.remove('is-open');
+      navTrigger.setAttribute('aria-expanded', 'false');
+    };
+
+    const openMenu = () => {
+      navDropdown.classList.add('is-open');
+      navTrigger.setAttribute('aria-expanded', 'true');
+    };
+
+    navTrigger.setAttribute('aria-haspopup', 'true');
+    navTrigger.setAttribute('aria-expanded', 'false');
+
+    navTrigger.addEventListener('click', (event) => {
+      if (!mqMobile.matches) return;
+      event.preventDefault();
+      if (navDropdown.classList.contains('is-open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!mqMobile.matches) return;
+      if (!navDropdown.contains(event.target)) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeMenu();
+      }
+    });
+
+    mqMobile.addEventListener('change', () => {
+      closeMenu();
+    });
+  }
 })();
