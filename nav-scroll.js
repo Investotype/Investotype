@@ -3,6 +3,11 @@
   if (!navWrap) return;
   const navDropdown = navWrap.querySelector('.nav-dropdown');
   const navTrigger = navWrap.querySelector('.nav-drop-trigger');
+  const backTopBtn = document.createElement('button');
+  backTopBtn.type = 'button';
+  backTopBtn.className = 'back-top-btn';
+  backTopBtn.textContent = 'Back to Top';
+  document.body.appendChild(backTopBtn);
 
   let lastY = window.scrollY || 0;
   let ticking = false;
@@ -14,6 +19,11 @@
     if (mqMobile.matches) {
       navWrap.classList.remove('is-hidden');
       lastY = window.scrollY || 0;
+      if ((window.scrollY || 0) > 520) {
+        backTopBtn.classList.add('is-visible');
+      } else {
+        backTopBtn.classList.remove('is-visible');
+      }
       ticking = false;
       return;
     }
@@ -34,6 +44,11 @@
     if (Math.abs(delta) <= hideThreshold) {
       lastY = currentY;
     }
+    if (currentY > 520) {
+      backTopBtn.classList.add('is-visible');
+    } else {
+      backTopBtn.classList.remove('is-visible');
+    }
     ticking = false;
   }
 
@@ -43,6 +58,10 @@
       ticking = true;
     }
   }, { passive: true });
+
+  backTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
   if (navDropdown && navTrigger) {
 
