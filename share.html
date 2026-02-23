@@ -1,0 +1,108 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Investotype | Shared Result</title>
+  <meta name="description" content="Shared Investotype investor result." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./analytics.js" defer></script>
+  <script src="./share-result.js" defer></script>
+  <script src="./nav-scroll.js" defer></script>
+</head>
+<body>
+  <div class="bg-shape bg-a"></div>
+  <div class="bg-shape bg-b"></div>
+
+  <header class="top-nav-wrap">
+    <nav class="top-nav">
+      <a href="./index.html">Home Page</a>
+      <a href="./personalities.html">Personality Types</a>
+      <div class="nav-dropdown">
+        <a href="./news.html" class="nav-drop-trigger">News</a>
+        <div class="nav-dropdown-menu">
+          <a href="./news.html">Current Market Trends</a>
+          <a href="./recommended-news.html">For Your Type</a>
+        </div>
+      </div>
+      <a href="./portfolio.html">Portfolio Builder</a>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="card hero small">
+      <p class="eyebrow">Shared Result</p>
+      <h1>Investotype</h1>
+      <p class="sub">This result was shared from the Investotype quiz.</p>
+    </section>
+
+    <section class="card">
+      <h2 id="shared-type" class="result-type">Investor Type</h2>
+      <p id="shared-summary" class="result-copy">Summary will appear here.</p>
+      <div class="result-share-actions">
+        <button id="share-link-btn" class="primary-btn" type="button">Share This Result</button>
+        <button id="share-image-btn" class="primary-btn" type="button">Share Image</button>
+      </div>
+      <p id="share-link-status" class="result-copy" style="text-align:center; margin-top: 0.6rem;"></p>
+      <div id="share-image-panel" class="share-image-panel" style="display:none;">
+        <div class="share-format-wrap">
+          <label class="share-format-label" for="share-image-format">Image ratio</label>
+          <select id="share-image-format" class="share-format-select">
+            <option value="1:1">1:1</option>
+            <option value="9:18">9:18</option>
+          </select>
+        </div>
+        <img id="share-image-preview" class="share-image-preview" alt="Generated social image for this result" />
+        <div class="share-image-actions">
+          <button id="share-image-open" class="primary-btn" type="button">Open Image</button>
+          <button id="share-image-download" class="primary-btn" type="button">Download Image</button>
+        </div>
+      </div>
+      <div id="shared-details"></div>
+      <div class="quiz-cta-center" style="margin-top: 1.2rem;">
+        <a class="primary-btn-link" href="./quiz.html">Take the Quiz</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Discover more at</p>
+    <p><a class="friendly-link" href="https://investotype.github.io/Investotype/index.html" target="_blank" rel="noopener noreferrer">Investotype Home</a></p>
+    <div class="footer-actions"><a class="instagram-btn" href="https://www.instagram.com/investotype?igsh=MTI2eG1pcHQ0ZWR0Nw==" target="_blank" rel="noopener noreferrer">Instagram</a><a class="contact-btn" href="mailto:tgrkhwang@gmail.com">Contact Email</a></div>
+      <p>&copy; 2026 Investotype. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
