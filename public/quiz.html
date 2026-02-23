@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InvestoType - Quiz</title>
+  <link rel="stylesheet" href="styles.css?v=20260223fl" />
+</head>
+<body>
+  <nav class="taskbar">
+    <a href="/" class="brand">InvestoType</a>
+    <div class="task-links">
+      <a href="/">Home</a>
+      <a href="/simulator.html">Investment Simulation</a>
+      <a href="/quiz.html" class="active" aria-current="page">Investor Quiz</a>
+      <a href="/investor-types.html">Investor Types</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>Investor Personality Quiz</h1>
+    <p>Twenty quick questions to uncover your investment temperament and see which investor type aligns with your style.</p>
+  </header>
+
+  <main class="single-layout">
+    <section id="quizIntro" class="card home-card">
+      <h2 class="quiz-intro-title">Ready to Begin?</h2>
+      <p>This quiz takes a minute or two. There are 5 questions for each of the three axes and 5 behavioral/psychological questions.</p>
+      <p class="quiz-help-text">
+        Beginner friendly: there are no right or wrong answers. Just pick what sounds most like you.
+      </p>
+      <button id="startQuizBtn" class="cta-link">Start Quiz</button>
+    </section>
+
+    <section id="quizSection" class="card hidden">
+      <div class="quiz-nav quiz-nav-top">
+        <button id="quizPrevBtn" type="button">Previous Question</button>
+      </div>
+      <p id="quizProgress"></p>
+      <div class="quiz-progress-track" aria-hidden="true">
+        <div id="quizProgressFill" class="quiz-progress-fill"></div>
+      </div>
+      <p id="quizQuestion" class="quiz-question"></p>
+      <div id="quizOptions" class="quiz-options"></div>
+      <div class="quiz-actions">
+        <button id="quizSeeResultBtn" type="button" class="cta-link hidden">See Result</button>
+      </div>
+    </section>
+
+    <section id="quizResultSection" class="hidden">
+      <!-- reuse the investorPanel markup from simulator.html -->
+      <div id="investorPanel" class="investor-panel">
+        <div class="investor-hero">
+          <p class="investor-eyebrow">Quiz Result</p>
+          <h3 id="investorTypeTitle">You are a...</h3>
+          <p id="investorTypeSummary" class="investor-summary">Complete the quiz to generate your analysis.</p>
+          <div id="investorTypeBadge" class="investor-type-badge">Type Pending</div>
+        </div>
+
+        <section class="chart-card investor-axis-combined">
+            <h4>3-Axis Profile Breakdown</h4>
+            <p id="investorAxisSummary" class="investor-axis-summary">Your axis explanation will appear here after the quiz.</p>
+            <div class="investor-axis-layout">
+              <div class="investor-axis-left">
+                <div id="investorAxisChips" class="investor-axis-chips"></div>
+              </div>
+              <div class="investor-axis-right">
+                <div class="investor-cube-head">
+                  <h4>Score Nebula</h4>
+                </div>
+                <div id="axis3dStage" class="axis-3d-stage">
+                  <canvas id="axis3dCanvas" width="560" height="360"></canvas>
+                  <div id="axis3dHoverTip" class="axis-3d-hover hidden"></div>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <div class="investor-grid">
+          <section class="chart-card investor-card investor-card-lead investor-span-12">
+            <h4>How To Invest Going Forward</h4>
+            <ul id="investorForwardList" class="investor-list"></ul>
+          </section>
+          <section class="chart-card investor-card investor-span-6">
+            <h4>Recommended Portfolio Mix</h4>
+            <ul id="investorPortfolioMixList" class="investor-list"></ul>
+          </section>
+          <section class="chart-card investor-card investor-span-6">
+            <h4>Best-Fit Investments</h4>
+            <ul id="investorBestFitList" class="investor-list"></ul>
+          </section>
+          <section class="chart-card investor-card investor-span-6">
+            <h4>Your Investment Habits</h4>
+            <ul id="investorHabitsList" class="investor-list"></ul>
+          </section>
+          <section class="chart-card investor-card investor-span-6">
+            <h4>Choices That Led Here</h4>
+            <ul id="investorWhyList" class="investor-list"></ul>
+          </section>
+          <section class="chart-card investor-card investor-span-6">
+            <h4>Strengths</h4>
+            <ul id="investorStrengthsList" class="investor-list"></ul>
+          </section>
+          <section class="chart-card investor-card investor-span-6">
+            <h4>Weaknesses</h4>
+            <ul id="investorWeaknessesList" class="investor-list"></ul>
+          </section>
+          <section class="chart-card investor-card investor-span-6">
+              <h4>Likely MBTI Tendencies</h4>
+            <ul id="investorMbtiList" class="investor-list"></ul>
+          </section>
+          <section class="chart-card investor-card investor-span-6">
+            <h4>Popular Investors With Similar Style</h4>
+            <div id="investorPopular" class="investor-alike"></div>
+          </section>
+        </div>
+
+        <div class="row investor-actions-row">
+          <button id="restartQuizBtn" type="button">Take Quiz Again</button>
+          <button id="shareResultBtn" type="button" class="ghost share-result-trigger">Share Result</button>
+          <div id="shareResultMenu" class="share-result-menu hidden">
+            <button id="shareResultLinkBtn" type="button" class="ghost">Copy Share Link</button>
+            <button id="shareResultImageBtn" type="button" class="ghost">Share Image</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <a class="footer-contact-btn" href="mailto:tgrkhwang@gmail.com" aria-label="Contact by email">Contact</a>
+    Copyright © 2026 InvestoType. All rights reserved.
+  </footer>
+
+  <script src="simulator.js?v=20260223f56"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

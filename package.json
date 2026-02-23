@@ -1,0 +1,16 @@
+﻿{
+  "name": "ai-investment-simulator-mvp",
+  "version": "1.0.0",
+  "description": "MVP web service for a tailored AI investment simulator",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
